@@ -1,0 +1,76 @@
+﻿@model List<WebInventario.Models.Mov_Inventario>
+
+@{
+	ViewData["Title"] = "Movimiento Inventario";
+	var errorMessage = TempData["errorMessage"]?.ToString();
+	var successMessage = TempData["successMessage"]?.ToString();
+}
+<h3>@ViewData["Title"]?.ToString()</h3>
+<hr />
+@if (!string.IsNullOrWhiteSpace(@successMessage))
+{
+	<div class="alert alert-success">
+		<b>Success : </b>@successMessage
+		<button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="close"></button>
+
+	</div>
+}
+else if (!string.IsNullOrWhiteSpace(errorMessage))
+{
+	<div class="alert alert-danger">
+		<b>Error : </b>@errorMessage
+		<button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="close"></button>
+
+	</div>
+}
+<form>
+	<button asp-action="Create" asp-controller="InventarioController1" class="btn btn-primary mb-3">Create Inventario</button>
+	<table class="table table-responsive table-bordered table-hover">
+		<thead>
+			<tr class="table-active">
+                <th>COD CIA</th>
+                <th>COMPAÑIA</th>
+                <th>ALMACEN VENTA</th>
+                <th>TIPO MOVIMIENTO</th>
+                <th>TIPO DOCUMENTO</th>
+                <th>NRO DOCUMENTO</th>
+                <th>COD ITEM2</th>                                
+			</tr>
+		</thead>
+		<tbody>
+			@if(Model != null && Model.Any())
+			{
+				@foreach (var inventario in Model)
+				{
+					<tr>
+						<td>@inventario.COD_CIA</td>
+						<td>@inventario.COMPANIA_VENTA_3</td>
+						<td>@inventario.ALMACEN_VENTA</td>
+						<td>@inventario.TIPO_MOVIMIENTO</td>
+						<td>@inventario.TIPO_DOCUMENTO</td>
+						<td>@inventario.NRO_DOCUMENTO</td>
+						<td>@inventario.COD_ITEM_2</td>
+						<td>
+							<div class="btn-group btn-group-sm">
+								<a asp-controller="InventarioController1" asp-action="Edit" asp-route-id="@inventario.COD_CIA class="btn btn-primary">Edit</a>
+								<a asp-controller="InventarioController1" asp-action="Update" asp-route-id="@inventario.COD_CIA class="btn btn-primary">Update</a>
+								<a asp-controller="InventarioController1" asp-action="Delete" asp-route-id="@inventario.COD_CIA" class="btn btn-danger">Delete</a> 
+							</div>
+
+						</td>
+					</tr>
+				}
+			}
+			else
+			{
+				<tr>
+					<td colspan="6">
+						<div>
+							Inventarios no disponibles en este momento!!
+						</div>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</form>

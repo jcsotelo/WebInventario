@@ -1,0 +1,128 @@
+﻿@model WebInventario.Models.Mov_Inventario;
+
+
+@{
+	ViewData["Title"] = "Crear Inventario";
+	var errorMessage = TempData["errorMessage"]?.ToString();
+	
+}
+<h3>@ViewData["Title"]?.ToString()</h3>
+<hr />
+@if (!string.IsNullOrWhiteSpace(errorMessage))
+{
+	<div class="alert alert-danger">
+		<b>Error : </b>@errorMessage
+		<button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="close"></button>
+
+	</div>
+}
+<form method="post" action="Create" class="mt-3" autocomplete="off">
+	<div class="mb-3">
+		<label class="form-label">COD CIA</label>
+		<input type="text" class="form-control" asp-for="COD_CIA" />
+		<span asp-validation-for="COD_CIA" class="text-danger"></span>
+
+	</div>
+
+	<div class="mb-3">
+		<label class="form-label">COMPANIA</label>
+		<input type="text" class="form-control" asp-for="COMPANIA_VENTA_3" />
+		<span asp-validation-for="COMPANIA_VENTA_3" class="text-danger"></span>
+
+	</div>
+
+	<div class="mb-3">
+		<label class="form-label">ALMACEN VENTA</label>
+		<input type="text" class="form-control" asp-for="ALMACEN_VENTA" />
+		<span asp-validation-for="ALMACEN_VENTA" class="text-danger"></span>
+
+	</div>
+
+	<div class="mb-3">
+		<label class="form-label">TIPO DOCUMENTO</label>
+		<input type="text" class="form-control" asp-for="TIPO_DOCUMENTO" />
+		<span asp-validation-for="TIPO_DOCUMENTO" class="text-danger"></span>
+
+	</div>
+
+	<div class="mb-3">
+		<label class="form-label">NRO DOCUMENTO</label>
+		<input type="text" class="form-control" asp-for="NRO_DOCUMENTO" />
+		<span asp-validation-for="NRO_DOCUMENTO" class="text-danger"></span>
+
+	</div>
+
+	<div class="mb-3">
+		<label class="form-label">COD ITEM2</label>
+		<input type="text" class="form-control" asp-for="COD_ITEM_2" />
+		<span asp-validation-for="COD_ITEM_2" class="text-danger"></span>
+
+	</div>
+
+	<div class="mb-3">
+		<label class="form-label">PROVEEDOR</label>
+		<input type="text" class="form-control" asp-for="PROVEEDOR" />
+		<span asp-validation-for="PROVEEDOR" class="text-danger"></span>
+
+	</div>
+
+	<div class="mb-3">
+		<label class="form-label">ALMACEN DESTINO</label>
+		<input type="text" class="form-control" asp-for="ALMACEN_DESTINO" />
+		<span asp-validation-for="ALMACEN_DESTINO" class="text-danger"></span>
+
+	</div>
+
+	<div class="mb-3">
+		<label class="form-label">CANTIDAD</label>
+		<input type="text" class="form-control" asp-for="CANTIDAD" />
+		<span asp-validation-for="CANTIDAD" class="text-danger"></span>
+
+	</div>
+
+	<div class="mb-3">
+		<label class="form-label">DOC REF1</label>
+		<input type="text" class="form-control" asp-for="DOC_REF_1" />
+		<span asp-validation-for="DOC_REF_1" class="text-danger"></span>
+
+	</div>
+
+	<div class="mb-3">
+		<label class="form-label">DOC REF2</label>
+		<input type="text" class="form-control" asp-for="DOC_REF_2" />
+		<span asp-validation-for="DOC_REF_2" class="text-danger"></span>
+
+	</div>
+
+	<div class="mb-3">
+		<label class="form-label">DOC REF3</label>
+		<input type="text" class="form-control" asp-for="DOC_REF_3" />
+		<span asp-validation-for="DOC_REF_3" class="text-danger"></span>
+
+	</div>
+
+	<div class="mb-3">
+		<label class="form-label">DOC REF4</label>
+		<input type="text" class="form-control" asp-for="DOC_REF_4" />
+		<span asp-validation-for="DOC_REF_4" class="text-danger"></span>
+
+	</div>
+
+	<div class="mb-3">
+		<label class="form-label">DOC REF5</label>
+		<input type="text" class="form-control" asp-for="DOC_REF_5" />
+		<span asp-validation-for="DOC_REF_5" class="text-danger"></span>
+
+	</div>
+
+	<div class="mb-3">
+		<label class="form-label">FECHA TRANSACCION</label>
+		<input type="text" class="form-control" asp-for="FECHA_TRANSACCION" />
+		<span asp-validation-for="FECHA_TRANSACCION" class="text-danger"></span>
+
+	</div>
+
+	<button asp-action="Create" asp-controller="InventarioController1" class="btn btn-primary mb-3">Grabar Inventario</button>
+
+	
+</form>
