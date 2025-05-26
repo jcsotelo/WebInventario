@@ -1,0 +1,297 @@
+Comparto los objetos SQL SERVER utilizados para este proyecto:
+
+
+---
+--- CREAR BASE DE DATOS
+---
+
+create database INVENTARIO
+GO
+
+
+---
+--- BASE DE DATOS ACTIVA
+---
+
+USE INVENTARIO
+GO
+
+---
+--- CREAR TABLA: MOV_INVENTARIO
+---
+
+CREATE TABLE dbo.MOV_INVENTARIO(
+	COD_CIA varchar(5) NOT NULL,
+	COMPANIA_VENTA_3 varchar(5) NOT NULL,
+	ALMACEN_VENTA varchar(10) NOT NULL,
+	TIPO_MOVIMIENTO varchar(2) NOT NULL,
+	TIPO_DOCUMENTO varchar(2) NOT NULL,
+	NRO_DOCUMENTO varchar(50) NOT NULL,
+	COD_ITEM_2 varchar(50) NOT NULL,
+	PROVEEDOR varchar(100) NULL,
+	ALMACEN_DESTINO varchar(50) NULL,
+	CANTIDAD int NULL,
+	DOC_REF_1 varchar(50) NULL,
+	DOC_REF_2 varchar(50) NULL,
+	DOC_REF_3 varchar(50) NULL,
+	DOC_REF_4 varchar(50) NULL,
+	DOC_REF_5 varchar(50) NULL,
+	FECHA_TRANSACCION DATE NULL,
+ CONSTRAINT PK_MOV_INVENTARIO PRIMARY KEY CLUSTERED 
+(
+	COD_CIA ASC,
+	COMPANIA_VENTA_3 ASC,
+	ALMACEN_VENTA ASC,
+	TIPO_MOVIMIENTO ASC,
+	TIPO_DOCUMENTO ASC,
+	NRO_DOCUMENTO ASC,
+	COD_ITEM_2 ASC
+) 
+);
+GO
+
+---
+--- CREAR STORED PROCEDURE: sp_get_inventario
+--- OBJETICO: Leer todos los inventarios
+---
+
+CREATE PROCEDURE dbo.sp_get_inventario
+AS
+BEGIN
+		Select COD_CIA,
+			   COMPANIA_VENTA_3,
+			   ALMACEN_VENTA,
+			   TIPO_MOVIMIENTO,
+			   TIPO_DOCUMENTO,
+			   NRO_DOCUMENTO,
+			   COD_ITEM_2,
+			   PROVEEDOR,
+			   ALMACEN_DESTINO,
+	           CANTIDAD,
+	           DOC_REF_1,
+	           DOC_REF_2,
+	           DOC_REF_3,
+			   DOC_REF_4,
+			   DOC_REF_5,
+			   FECHA_TRANSACCION
+		From dbo.MOV_INVENTARIO WITH (NOLOCK)
+
+END
+GO
+
+---
+--- CREAR STORED PROCEDURE: sp_get_inventarioByCia
+--- OBJETICO: Leer inventario por COD_CIA
+---
+
+CREATE PROCEDURE dbo.sp_get_inventarioByCia
+(
+	@COD_CIA VARCHAR(5),
+	@COMPANIA_VENTA_3 varchar(5),
+	@ALMACEN_VENTA varchar(10),
+	@TIPO_MOVIMIENTO varchar(2),
+	@TIPO_DOCUMENTO varchar(2),
+	@NRO_DOCUMENTO varchar(50),
+	@COD_ITEM_2 varchar(50)
+)
+AS
+BEGIN
+		Select COD_CIA,
+			   COMPANIA_VENTA_3,
+			   ALMACEN_VENTA,
+			   TIPO_MOVIMIENTO,
+			   TIPO_DOCUMENTO,
+			   NRO_DOCUMENTO,
+			   COD_ITEM_2,
+			   PROVEEDOR,
+			   ALMACEN_DESTINO,
+	           CANTIDAD,
+	           DOC_REF_1,
+	           DOC_REF_2,
+	           DOC_REF_3,
+			   DOC_REF_4,
+			   DOC_REF_5,
+			   FECHA_TRANSACCION
+		From dbo.MOV_INVENTARIO WITH (NOLOCK)
+		Where COD_CIA = @COD_CIA AND
+			  COMPANIA_VENTA_3 = @COMPANIA_VENTA_3 AND
+			  ALMACEN_VENTA = @ALMACEN_VENTA AND
+			  TIPO_MOVIMIENTO = @TIPO_MOVIMIENTO AND
+			  TIPO_DOCUMENTO = @TIPO_DOCUMENTO AND
+			  NRO_DOCUMENTO = @NRO_DOCUMENTO AND
+			  COD_ITEM_2 = @COD_ITEM_2
+				
+
+END
+GO
+
+---
+--- CREAR STORED PROCEDURE: sp_insert_inventario
+--- OBJETIVO: Insertar inventario
+---
+
+CREATE PROCEDURE dbo.sp_insert_inventario
+(
+	@COD_CIA varchar(5),
+	@COMPANIA_VENTA_3 varchar(5),
+	@ALMACEN_VENTA varchar(10),
+	@TIPO_MOVIMIENTO varchar(2),
+	@TIPO_DOCUMENTO varchar(2),
+	@NRO_DOCUMENTO varchar(50),
+	@COD_ITEM_2 varchar(50),
+	@PROVEEDOR varchar(100),
+	@ALMACEN_DESTINO varchar(50),
+	@CANTIDAD int,
+	@DOC_REF_1 varchar(50),
+	@DOC_REF_2 varchar(50),
+	@DOC_REF_3 varchar(50),
+	@DOC_REF_4 varchar(50),
+	@DOC_REF_5 varchar(50),
+	@FECHA_TRANSACCION DATE
+)
+AS
+BEGIN
+
+  BEGIN TRY
+    BEGIN TRAN
+		INSERT INTO dbo.MOV_INVENTARIO(
+			   COD_CIA,
+			   COMPANIA_VENTA_3,
+			   ALMACEN_VENTA,
+			   TIPO_MOVIMIENTO,
+			   TIPO_DOCUMENTO,
+			   NRO_DOCUMENTO,
+			   COD_ITEM_2,
+			   PROVEEDOR,
+			   ALMACEN_DESTINO,
+	           CANTIDAD,
+	           DOC_REF_1,
+	           DOC_REF_2,
+	           DOC_REF_3,
+			   DOC_REF_4,
+			   DOC_REF_5,
+			   FECHA_TRANSACCION
+		)
+		VALUES(
+			   @COD_CIA,
+			   @COMPANIA_VENTA_3,
+			   @ALMACEN_VENTA,
+			   @TIPO_MOVIMIENTO,
+			   @TIPO_DOCUMENTO,
+	           @NRO_DOCUMENTO,
+			   @COD_ITEM_2,
+	           @PROVEEDOR,
+	           @ALMACEN_DESTINO,
+	           @CANTIDAD,
+	           @DOC_REF_1,
+	           @DOC_REF_2,
+	           @DOC_REF_3,
+	           @DOC_REF_4,
+	           @DOC_REF_5,
+	           @FECHA_TRANSACCION		
+		)
+
+    COMMIT TRAN
+  END TRY	
+  BEGIN	CATCH
+		ROLLBACK TRAN
+  END CATCH
+END
+
+GO
+---
+--- CREAR STORED PROCEDURE: sp_update_inventario
+--- OBJETIVO: actualizar inventario
+---
+
+CREATE PROCEDURE dbo.sp_update_inventario
+(
+	@COD_CIA varchar(5),
+	@COMPANIA_VENTA_3 varchar(5),
+	@ALMACEN_VENTA varchar(10),
+	@TIPO_MOVIMIENTO varchar(2),
+	@TIPO_DOCUMENTO varchar(2),
+	@NRO_DOCUMENTO varchar(50),
+	@COD_ITEM_2 varchar(50),
+	@PROVEEDOR varchar(100),
+	@ALMACEN_DESTINO varchar(50),
+	@CANTIDAD int,
+	@DOC_REF_1 varchar(50),
+	@DOC_REF_2 varchar(50),
+	@DOC_REF_3 varchar(50),
+	@DOC_REF_4 varchar(50),
+	@DOC_REF_5 varchar(50),
+	@FECHA_TRANSACCION DATE
+)
+AS
+BEGIN
+
+  BEGIN TRY
+    BEGIN TRAN
+
+	    UPDATE dbo.MOV_INVENTARIO
+		SET PROVEEDOR = @PROVEEDOR,
+			ALMACEN_DESTINO = @ALMACEN_DESTINO,
+	        CANTIDAD = @CANTIDAD,
+	        DOC_REF_1 = @DOC_REF_1,
+	        DOC_REF_2 = @DOC_REF_2,
+	        DOC_REF_3 = @DOC_REF_3,
+			DOC_REF_4 = @DOC_REF_4,
+			DOC_REF_5 = @DOC_REF_5,
+			FECHA_TRANSACCION = @FECHA_TRANSACCION
+		WHERE COD_CIA = @COD_CIA AND
+			  COMPANIA_VENTA_3 = @COMPANIA_VENTA_3 AND
+			  ALMACEN_VENTA = @ALMACEN_VENTA AND
+			  TIPO_MOVIMIENTO = @TIPO_MOVIMIENTO AND
+			  TIPO_DOCUMENTO = @TIPO_DOCUMENTO AND
+			  NRO_DOCUMENTO = @NRO_DOCUMENTO AND
+			  COD_ITEM_2 = @COD_ITEM_2			  
+	
+    COMMIT TRAN
+  END TRY	
+  BEGIN	CATCH
+		ROLLBACK TRAN
+  END CATCH
+END
+
+GO
+
+
+---
+--- CREAR STORED PROCEDURE: sp_delete_inventario
+--- OBJETIVO: eliminar inventario
+---
+
+CREATE PROCEDURE dbo.sp_delete_inventario
+(
+	@COD_CIA varchar(5),
+	@COMPANIA_VENTA_3 varchar(5),
+	@ALMACEN_VENTA varchar(10),
+	@TIPO_MOVIMIENTO varchar(2),
+	@TIPO_DOCUMENTO varchar(2),
+	@NRO_DOCUMENTO varchar(50),
+	@COD_ITEM_2 varchar(50)	
+)
+AS
+BEGIN
+
+  BEGIN TRY
+    BEGIN TRAN
+
+	    DELETE FROM dbo.MOV_INVENTARIO		
+		WHERE COD_CIA = @COD_CIA AND
+			  COMPANIA_VENTA_3 = @COMPANIA_VENTA_3 AND
+			  ALMACEN_VENTA = @ALMACEN_VENTA AND
+			  TIPO_MOVIMIENTO = @TIPO_MOVIMIENTO AND
+			  TIPO_DOCUMENTO = @TIPO_DOCUMENTO AND
+			  NRO_DOCUMENTO = @NRO_DOCUMENTO AND
+			  COD_ITEM_2 = @COD_ITEM_2			  
+	
+    COMMIT TRAN
+  END TRY	
+  BEGIN	CATCH
+		ROLLBACK TRAN
+  END CATCH
+END
+
+GO
