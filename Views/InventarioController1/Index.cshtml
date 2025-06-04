@@ -52,9 +52,9 @@ else if (!string.IsNullOrWhiteSpace(errorMessage))
 						<td>@inventario.COD_ITEM_2</td>
 						<td>
 							<div class="btn-group btn-group-sm">
-								<a asp-controller="InventarioController1" asp-action="Edit" asp-route-id="@inventario.COD_CIA class="btn btn-primary">Edit</a>
-								<a asp-controller="InventarioController1" asp-action="Update" asp-route-id="@inventario.COD_CIA class="btn btn-primary">Update</a>
-								<a asp-controller="InventarioController1" asp-action="Delete" asp-route-id="@inventario.COD_CIA" class="btn btn-danger">Delete</a> 
+								<a asp-controller="InventarioController1" asp-action="Editar" asp-route-id="@inventario.COD_CIA" class="btn btn-primary">Edit</a>
+								<a asp-controller="InventarioController1" asp-action="Update" asp-route-id="inventario" class="btn btn-primary">Update</a>
+								<a asp-controller="InventarioController1" asp-action="Delete" asp-route-id="inventario" class="btn btn-danger">Delete</a> 
 							</div>
 
 						</td>
